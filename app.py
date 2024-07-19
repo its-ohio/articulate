@@ -67,7 +67,7 @@ def main() -> None:
         st.markdown(":gray[*Version 0.0.3: Built in timer*]")
         st.divider()
         st.header(body="What category are you on?")
-        category = st.selectbox(label=" ", options=["People", "Places", "Objects", "Actions", "World", "Random"])
+        category = st.selectbox(label=" ", options=["People", "World", "Objects", "Nature", "Random", "Actions", "Spade"])
         go_button = st.button(label="Start Round!", on_click=submit_callback)
 
     if "submit_clicked" not in st.session_state:
