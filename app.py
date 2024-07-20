@@ -33,7 +33,7 @@ def get_word():
             file.close()
             break
 
-    return new_word
+    st.session_state.word = new_word
 
 
 def start_callback():
@@ -41,20 +41,23 @@ def start_callback():
         st.session_state.start = True
         st.session_state.score = 0
         st.session_state.skip = False
+        get_word()
     else:
         pass
 
 
 def correct_callback():
-    pass
+    get_word()
+    st.session_state.score += 1
 
 
 def skip_callback():
     if st.session_state.skip:
-        return None
+        st.error(f'You have already skipped! Your skipped word was {st.session_state.skipped_word}', icon="🚨")
     else:
-        x = random.randint(0, 499)
-        return x
+        st.session_state.skipped_word = st.session_state.word
+        st.session_state.skip = True
+        get_word()
 
 
 def main() -> None:
@@ -76,10 +79,13 @@ def main() -> None:
     if go_button or st.session_state.submit_clicked:
         user_input.empty()
         st.session_state.category = category
-        st.header(body=f"Your word is: {get_word()}", divider="rainbow")
-        correct_button = st.button(label="Next", on_click=correct_callback)
-        reset_button = st.button(label="Reset", on_click=refresh)
+        st.header(body=f"Your word is: {st.sesssion_state.word}", divider="rainbow")
+        correct_button = st.button(label="Correct", on_click=correct_callback)
+        skip_button = st.button(label="Skip", on_click=skip_callback)
+        st.subheader(body=f"Score this round: {st.session_state.score}")
+        reset_button = st.button(label="Reset Round", on_click=refresh)
 
 
 if __name__ == "__main__":
     main()
+    
