@@ -79,7 +79,7 @@ def main() -> None:
     if go_button or st.session_state.submit_clicked:
         user_input.empty()
         st.session_state.category = category
-        st.header(body=f"Your word is: {st.sesssion_state.word}", divider="rainbow")
+        st.header(body=f"Your word is: {st.session_state.word}", divider="rainbow")
         correct_button = st.button(label="Correct", on_click=correct_callback)
         skip_button = st.button(label="Skip", on_click=skip_callback)
         st.subheader(body=f"Score this round: {st.session_state.score}")
